@@ -3,13 +3,14 @@ const cors = require("cors");
 const express = require("express");
 const router = require("./routes/index");
 const sequelize = require("./db");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 app.use(express.json());
 
 app.use(cors({ origin: process.env.CORS_URL }));
 app.use("/api", router);
-
+router.use(errorHandler);
 
 const start = async () => {
   try {
